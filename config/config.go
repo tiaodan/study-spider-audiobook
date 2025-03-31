@@ -17,6 +17,9 @@ type Config struct {
 		RemoteIp   string `mapstructure:"remote_ip"`
 		RemotePort string `mapstructure:"remote_port"`
 	}
+	Log struct {
+		Level string `mapstructure:"level"`
+	}
 }
 
 var (
@@ -32,19 +35,27 @@ var (
    3. 读取配置文件
    4. 将配置文件解析到结构体
    5. 返回配置指针
+
+参数:
+	1. path string 配置文件搜索路径（当前目录）
+	2. name string 配置文件名（不含扩展名）
+	3. ext string 配置文件扩展名（.ini、.yaml 等）
 */
-func GetConfig() *Config {
+func GetConfig(path, name, ext string) *Config {
 	once.Do(func() {
 		// 初始化Viper
-		viper.AddConfigPath(".")      //配置文件搜索路径（当前目录）
-		viper.SetConfigName("config") // 配置文件名（不含扩展名）
-		viper.SetConfigType("ini")    // 文件类型（yaml、json 等）
+		viper.AddConfigPath(path) //配置文件搜索路径（当前目录），如 “.”
+		viper.SetConfigName(name) // 配置文件名（不含扩展名）, 如 "config"
+		viper.SetConfigType(ext)  // 文件类型（yaml、json 等）, 如 “ini”
 
 		// 设置默认值, 防止用户没配置, 读取到空值
 		viper.SetDefault("network.local_ip", "127.0.0.1")
 		viper.SetDefault("network.local_port", "8080")
 		viper.SetDefault("network.remote_ip", "192.168.85.93")
 		viper.SetDefault("network.remote_port", "3200")
+
+		// 设置默认值 [log] 相关
+		viper.SetDefault("log.level", "info") // 设置默认info级别
 
 		// 读取配置文件
 		if err := viper.ReadInConfig(); err != nil {
