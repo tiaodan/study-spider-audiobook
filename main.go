@@ -10,7 +10,7 @@ import (
 func main() {
 	fmt.Print("Hello, World!")
 	// 获取配置实例（首次调用时触发初始化）
-	cfg := config.GetConfig(".", "config", "ini")
+	cfg := config.GetConfig(".", "config", "yaml")
 
 	// 使用配置
 	log.Println("network.local_ip: ", cfg.Network.LocalIp)

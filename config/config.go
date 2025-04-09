@@ -1,11 +1,9 @@
 package config
 
 import (
-	"fmt"
 	"log"
 	"sync"
 
-	"github.com/mitchellh/mapstructure"
 	"github.com/spf13/viper"
 )
 
@@ -69,22 +67,4 @@ func GetConfig(path, name, ext string) *Config {
 		}
 	})
 	return cfg
-}
-
-// WriteConfig 将配置写入文件
-func WriteConfig(cfg *Config) error {
-	// 将结构体转换为 map[string]interface{}
-	var newCfg map[string]interface{}
-	if err := mapstructure.Decode(cfg, &newCfg); err != nil {
-		return fmt.Errorf("结构体转 Map 失败:: %v", err)
-	}
-
-	// 将 Map 合并到 Viper
-	viper.MergeConfigMap(newCfg)
-
-	// 将Viper配置写入文件
-	if err := viper.WriteConfig(); err != nil {
-		return fmt.Errorf("写入配置文件失败: %v", err)
-	}
-	return nil
 }
