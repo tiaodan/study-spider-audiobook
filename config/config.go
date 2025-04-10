@@ -1,19 +1,21 @@
 package config
 
 import (
+	"fmt"
 	"log"
+	"os"
+	"study-spider-audiobook/logger"
 	"sync"
 
+	"github.com/mitchellh/mapstructure"
 	"github.com/spf13/viper"
+	"gopkg.in/yaml.v3"
 )
 
 // 配置文件 结构体
 type Config struct {
 	Network struct {
-		LocalIp    string `mapstructure:"local_ip"`
-		LocalPort  string `mapstructure:"local_port"`
-		RemoteIp   string `mapstructure:"remote_ip"`
-		RemotePort string `mapstructure:"remote_port"`
+		XimalayaIIp string `mapstructure:"ximalaya_ip"`
 	}
 	Log struct {
 		Level string `mapstructure:"level"`
@@ -47,10 +49,7 @@ func GetConfig(path, name, ext string) *Config {
 		viper.SetConfigType(ext)  // 文件类型（yaml、json 等）, 如 “ini”
 
 		// 设置默认值, 防止用户没配置, 读取到空值
-		viper.SetDefault("network.local_ip", "127.0.0.1")
-		viper.SetDefault("network.local_port", "8080")
-		viper.SetDefault("network.remote_ip", "192.168.85.93")
-		viper.SetDefault("network.remote_port", "3200")
+		viper.SetDefault("network.ximalaya_ip", "www.ximalaya.com")
 
 		// 设置默认值 [log] 相关
 		viper.SetDefault("log.level", "info") // 设置默认info级别
@@ -67,4 +66,51 @@ func GetConfig(path, name, ext string) *Config {
 		}
 	})
 	return cfg
+}
+
+// WriteConfig4Blank 将配置写入文件, 不带注释, 4个空格缩进
+func WriteConfig4Blank(cfg *Config) error {
+	// 将结构体转换为 map[string]interface{}
+	var newCfg map[string]interface{}
+	if err := mapstructure.Decode(cfg, &newCfg); err != nil {
+		return fmt.Errorf("结构体转 Map 失败:: %v", err)
+	}
+
+	// 将 Map 合并到 Viper
+	viper.MergeConfigMap(newCfg)
+
+	// 将Viper配置写入文件
+	if err := viper.WriteConfig(); err != nil {
+		return fmt.Errorf("写入配置文件失败: %v", err)
+	}
+	return nil
+}
+
+// WriteConfig2Blank 将配置写入文件, 不带注释, 2个空格缩进
+func WriteConfig2Blank() error {
+	// 获取 Viper 的所有配置（map 格式）
+	cfgMap := viper.AllSettings()
+
+	// 创建 YAML 编码器并设置缩进
+	encoder := yaml.NewEncoder(os.Stdout)
+	encoder.SetIndent(2) // 关键：设置缩进为 2 个空格
+
+	// 将配置写入文件（或输出流）
+	file, err := os.Create("config.yaml")
+	if err != nil {
+		panic(err)
+	}
+	defer file.Close()
+
+	// 创建文件编码器
+	fileEncoder := yaml.NewEncoder(file)
+	fileEncoder.SetIndent(2)
+
+	// 编码并写入文件
+	if err := fileEncoder.Encode(cfgMap); err != nil {
+		panic(fmt.Sprintf("YAML 编码失败: %v", err))
+	}
+
+	logger.Debug("配置文件已生成（缩进 2 空格）")
+	return err
 }

@@ -1,0 +1,8 @@
+# 日志相关
+log:
+  level: debug
+
+# 网络相关
+network:
+  # 喜马拉雅ip,可以是ip,也可以是域名
+  ximalaya_ip: 8.8.8.8

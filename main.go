@@ -1,22 +1,17 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"study-spider-audiobook/config"
 	"study-spider-audiobook/logger"
 )
 
 func main() {
-	fmt.Print("Hello, World!")
 	// 获取配置实例（首次调用时触发初始化）
 	cfg := config.GetConfig(".", "config", "yaml")
 
 	// 使用配置
-	log.Println("network.local_ip: ", cfg.Network.LocalIp)
-	log.Println("network.local_port: ", cfg.Network.LocalPort)
-	log.Println("network.remote_ip: ", cfg.Network.RemoteIp)
-	log.Println("network.remote_port: ", cfg.Network.RemotePort)
+	log.Println("network.ximalayaIIp_ip: ", cfg.Network.XimalayaIIp)
 
 	// 读取配置文件，并设置为日志级别, 默认info
 	switch cfg.Log.Level {
@@ -36,4 +31,14 @@ func main() {
 	logger.Info("这是一条普通信息")
 	logger.Warn("这是一条警告信息")
 	logger.Error("这是一条错误信息")
+
+	// 修改配置
+	cfg.Network.XimalayaIIp = "8.8.8.8"
+	// 写入配置文件
+	// if err := config.WriteConfig(cfg); err != nil {
+	// 	log.Fatalln("写入配置文件失败,err: ", err)
+	// }
+	if err := config.WriteConfig2Blank(); err != nil {
+		log.Fatalln("写入配置文件失败,err: ", err)
+	}
 }
