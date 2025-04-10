@@ -43,3 +43,26 @@
 [WARN ] 2025/04/10 09:09:21 logger.go:75: 这是一条警告信息
 [ERROR] 2025/04/10 09:09:21 logger.go:82: 这是一条错误信息
 [DEBUG] 2025/04/10 09:09:21 logger.go:61: 配置文件已生成（缩进 2 空格）
+[DEBUG] 2025/04/10 16:41:38 logger.go:61: 这是一条调试信息=sss
+[DEBUG] 2025/04/10 16:43:12 logger.go:61: network.ximalayaIIp_ip: 8.8.8.8
+[DEBUG] 2025/04/10 16:48:27 logger.go:61: network.ximalayaIIp_ip: ximalaya.com
+[DEBUG] 2025/04/10 16:48:27 logger.go:61: 配置文件已生成（缩进 2 空格）
+[DEBUG] 2025/04/10 17:03:16 logger.go:61: network.ximalayaIIp_ip: ximalaya.com
+[DEBUG] 2025/04/10 17:03:16 logger.go:61: 配置文件已生成（缩进 2 空格）
+[DEBUG] 2025/04/10 17:05:07 logger.go:61: network.ximalayaIIp_ip: ximalaya.com
+[DEBUG] 2025/04/10 17:05:07 logger.go:61: 配置文件已生成（缩进 2 空格）
+[DEBUG] 2025/04/10 17:05:51 logger.go:61: network.ximalayaIIp_ip: ximalaya.com
+[DEBUG] 2025/04/10 17:05:51 logger.go:61: 配置文件已生成（缩进 2 空格）
+[DEBUG] 2025/04/10 17:09:58 logger.go:61: network.ximalayaIIp_ip: ximalaya.com
+[DEBUG] 2025/04/10 17:14:57 logger.go:61: network.ximalayaIIp_ip: www.baidu.com111
+[DEBUG] 2025/04/10 17:14:57 logger.go:61: 配置文件已生成（缩进 2 空格）
+[DEBUG] 2025/04/10 17:21:14 logger.go:61: network.ximalayaIIp_ip: www.baidu.com111
+[DEBUG] 2025/04/10 17:21:14 logger.go:61: 配置文件已生成（缩进 2 空格）
+[DEBUG] 2025/04/10 17:21:49 logger.go:61: network.ximalayaIIp_ip: www.baidu.com111
+[DEBUG] 2025/04/10 17:21:49 logger.go:61: 配置文件已生成（缩进 2 空格）
+[DEBUG] 2025/04/10 17:22:49 logger.go:61: network.ximalayaIIp_ip: www.baidu.com1111
+[DEBUG] 2025/04/10 17:22:49 logger.go:61: 配置文件已生成（缩进 2 空格）
+[DEBUG] 2025/04/10 17:23:19 logger.go:61: network.ximalayaIIp_ip: www.baidu.com
+[DEBUG] 2025/04/10 17:23:19 logger.go:61: 配置文件已生成（缩进 2 空格）
+[DEBUG] 2025/04/10 17:23:31 logger.go:61: network.ximalayaIIp_ip: www.baidu.com11
+[DEBUG] 2025/04/10 17:23:31 logger.go:61: 配置文件已生成（缩进 2 空格）

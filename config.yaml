@@ -1,4 +1,4 @@
 log:
   level: debug
 network:
-  ximalaya_ip: 8.8.8.8
+  ximalaya_ip: www.ximalaya.com

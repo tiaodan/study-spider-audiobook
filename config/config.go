@@ -40,6 +40,28 @@ var (
 	1. path string 配置文件搜索路径（当前目录）
 	2. name string 配置文件名（不含扩展名）
 	3. ext string 配置文件扩展名（.ini、.yaml 等）
+
+使用方式：
+	如main.go调用
+	// 获取配置实例（首次调用时触发初始化）
+	cfg := config.GetConfig(".", "config", "yaml")
+
+	// 使用配置
+	log.Println("network.ximalayaIIp_ip: ", cfg.Network.XimalayaIIp)
+
+	// 读取配置文件，并设置为日志级别, 默认info
+	switch cfg.Log.Level {
+	case "debug":
+		logger.SetLogLevel(logger.LevelDebug)
+	case "info":
+		logger.SetLogLevel(logger.LevelInfo)
+	case "warn":
+		logger.SetLogLevel(logger.LevelWarn)
+	case "error":
+		logger.SetLogLevel(logger.LevelError)
+	default:
+		logger.SetLogLevel(logger.LevelInfo)
+	}
 */
 func GetConfig(path, name, ext string) *Config {
 	once.Do(func() {
@@ -87,7 +109,18 @@ func WriteConfig4Blank(cfg *Config) error {
 }
 
 // WriteConfig2Blank 将配置写入文件, 不带注释, 2个空格缩进
-func WriteConfig2Blank() error {
+/*
+参数:
+	1. path string 配置文件搜索路径（当前目录）
+	2. name string 配置文件名（不含扩展名）
+	3. ext string 配置文件扩展名（.ini、.yaml 等）
+
+调用方式：
+if err := config.WriteConfig2Blank(); err != nil {
+	log.Fatalln("写入配置文件失败,err: ", err)
+}
+*/
+func WriteConfig2Blank(path, name, ext string) error {
 	// 获取 Viper 的所有配置（map 格式）
 	cfgMap := viper.AllSettings()
 
@@ -96,7 +129,9 @@ func WriteConfig2Blank() error {
 	encoder.SetIndent(2) // 关键：设置缩进为 2 个空格
 
 	// 将配置写入文件（或输出流）
-	file, err := os.Create("config.yaml")
+	filepathStr := path + "/" + name + "." + ext
+	log.Println("filepathStr= ", filepathStr)
+	file, err := os.Create(filepathStr) // "config.yaml"
 	if err != nil {
 		panic(err)
 	}
