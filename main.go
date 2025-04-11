@@ -3,6 +3,7 @@ package main
 import (
 	"study-spider-audiobook/config"
 	"study-spider-audiobook/logger"
+	"study-spider-audiobook/ximalaya"
 )
 
 // 初始化, 默认main会自动调用本方法
@@ -40,4 +41,7 @@ func main() {
 	// 1. 读取配置文件， (如果配置文件不填, 自动会有默认值)
 	// 2. 设置日志级别, 默认info
 	// 3. 统一调用错误打印, 封装函数
+	// 4. 爬取页面数据, 尽量去重
+	url := "https://www.ximalaya.com/revision/category/v2/albums?pageNum=1&pageSize=56&sort=1&categoryId=15&metadataValues=%E6%96%87%E5%AD%A6%E5%90%8D%E8%91%97"
+	ximalaya.SpiderGuangbojuByInterface(url)
 }
