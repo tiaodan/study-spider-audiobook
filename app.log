@@ -66,3 +66,4 @@
 [DEBUG] 2025/04/10 17:23:19 logger.go:61: 配置文件已生成（缩进 2 空格）
 [DEBUG] 2025/04/10 17:23:31 logger.go:61: network.ximalayaIIp_ip: www.baidu.com11
 [DEBUG] 2025/04/10 17:23:31 logger.go:61: 配置文件已生成（缩进 2 空格）
+[DEBUG] 2025/04/10 17:35:59 logger.go:61: network.ximalayaIIp_ip: www.ximalaya.com
